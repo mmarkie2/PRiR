@@ -5,8 +5,7 @@
 #include <cmath>
 
 using namespace std; 
-
-
+#define M_PI 3.14
 void kodWatku()
 {
  for (int i=0;i<10;++i) 

@@ -39,6 +39,27 @@ void l4z1(){
 
    
 }
+class Watek2
+{
+private:
+    int numer;
+public:
+    Watek2(int _numer): numer(_numer){}
+
+    void operator()()
+    {
+
+        while (licznik>0)
+        {
+
+            cout<<"w "<<numer<<" 1: "<< licznik<<endl;
+            --licznik;
+            this_thread::sleep_for(chrono::microseconds(OPOZNIENIE));
+        }
+
+    }
+};
+
 void l4z2(){
 
   licznik=50;

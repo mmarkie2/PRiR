@@ -77,8 +77,38 @@ void l4z2() {
 
 }
 
-void l4z3() {
+class Watek3 {
+private:
+    int numer;
+public:
+    Watek3(int _numer) : numer(_numer) {}
 
+    void operator()() {
+
+        while (licznik > 0) {
+
+            licznikMutex.lock();
+
+                if (licznik <= 0) {
+                    break;
+                }
+                cout << "w " << numer << " 1: " << licznik << endl;
+                --licznik;
+            licznikMutex.unlock();
+            this_thread::sleep_for(chrono::microseconds(OPOZNIENIE));
+
+
+        }
+
+    }
+};
+
+void l4z3() {
+    licznik = 50;
+    thread w1(Watek3(1));
+    thread w2(Watek3(2));
+    w1.join();
+    w2.join();
 }
 
 void l4z4() {

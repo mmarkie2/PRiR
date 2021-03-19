@@ -1,6 +1,6 @@
 
 #include "lab04.h"
-
+#include <thread>
 using namespace std;
 
 const int OPOZNIENIE;
@@ -11,8 +11,21 @@ class Watek
   private:
 int numer;
 public:
-Watek(int _numer)
+Watek(int _numer): numer(numer){
+
+}
+void operator()
+{
+
+}while (licznik>0)
+{
+
+  cout<<"w "<<numer<<" 1: "<< licznik<<endl;
+  --licznik;
+  this_thread
+}
 };
+
 void l4z1(){
   
 }

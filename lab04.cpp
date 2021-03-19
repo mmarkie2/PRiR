@@ -125,15 +125,15 @@ public:
 
     void operator()() {
 
+            licznikMutex.lock();
         for (int i = 0; i < ZNAKOW_DO_ZAPISANIA; ++i) {
-            {
-                licznikMutex.lock();
+
                 lancuch[i] = znak;
-                licznikMutex.unlock();
-            }
+
             this_thread::sleep_for(chrono::microseconds(OPOZNIENIE));
 
         }
+            licznikMutex.unlock();
 
     }
 };

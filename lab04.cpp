@@ -4,7 +4,8 @@
 #include <chrono>
 #include <iostream>
 #include <mutex>
-
+#include <vector>
+#include <string>
 using namespace std;
 
 const int OPOZNIENIE = 100;
@@ -89,11 +90,11 @@ public:
 
             licznikMutex.lock();
 
-                if (licznik <= 0) {
-                    break;
-                }
-                cout << "w " << numer << " 1: " << licznik << endl;
-                --licznik;
+            if (licznik <= 0) {
+                break;
+            }
+            cout << "w " << numer << " 1: " << licznik << endl;
+            --licznik;
             licznikMutex.unlock();
             this_thread::sleep_for(chrono::microseconds(OPOZNIENIE));
 
@@ -111,9 +112,47 @@ void l4z3() {
     w2.join();
 }
 
-void l4z4() {
+const int LICZBA_WATKOW = 5;
+const int ZNAKOW_DO_ZAPISANIA = 1024;
 
+class Watek4 {
+private:
+    char znak;
+    string &lancuch;
+public:
+    Watek4(char _znak,
+           string &_lancuch) : znak(_znak), lancuch(_lancuch) {}
+
+    void operator()() {
+
+        for (int i = 0; i < ZNAKOW_DO_ZAPISANIA; ++i) {
+            {
+                licznikMutex.lock();
+                lancuch[i] = znak;
+                licznikMutex.unlock();
+            }
+            this_thread::sleep_for(chrono::microseconds(OPOZNIENIE));
+
+        }
+
+    }
+};
+
+void l4z4() {
+    string lancuch;
+    lancuch.resize(ZNAKOW_DO_ZAPISANIA);
+    vector<thread> watki;
+
+    for (unsigned int i = 0; i < LICZBA_WATKOW; ++i) {
+        watki.push_back(thread(Watek4('a' + i, lancuch)));
+    }
+
+    for (thread &w: watki) {
+        w.join();
+    }
+    cout << lancuch<<endl;
 }
+
 
 //dodatkowe tablica mutexow, zmienna globalna licznik
 void l4zDodatkowe() {

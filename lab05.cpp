@@ -74,7 +74,7 @@ public:
         while (czas<CZAS_PRACY)
         {
             pojemnik.zapisz(biezacyZnak);
-            biezacyZnak=(biezacyZnak+1-97)%25-97;
+            biezacyZnak=(biezacyZnak+1-97)%25+97;
             this_thread::sleep_for(chrono::seconds(1));
             ++czas;
         }

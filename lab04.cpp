@@ -62,6 +62,7 @@ public:
                 }
                 cout << "w " << numer << " 1: " << licznik << endl;
                 --licznik;
+
             }
             this_thread::sleep_for(chrono::microseconds(OPOZNIENIE));
 

@@ -37,15 +37,22 @@ int main() {
 //lab4
 
 
- std::cout<<"l4z1"<<std::endl;
-l4z1();
- std::cout<<"l4z2"<<std::endl;
-l4z2();
- std::cout<<"l4z3"<<std::endl;
-l4z3();
- std::cout<<"l4z4"<<std::endl;
-l4z4();
- std::cout<<"l4zDodatkowe"<<std::endl;
-l4zDodatkowe();
+// std::cout<<"l4z1"<<std::endl;
+//l4z1();
+// std::cout<<"l4z2"<<std::endl;
+//l4z2();
+// std::cout<<"l4z3"<<std::endl;
+//l4z3();
+// std::cout<<"l4z4"<<std::endl;
+//l4z4();
+// std::cout<<"l4zDodatkowe"<<std::endl;
+//l4zDodatkowe();
 
+
+ std::cout<<"l5z1"<<std::endl;
+l5z1();
+ std::cout<<"l5z2"<<std::endl;
+l5z2();
+ std::cout<<"l5z3"<<std::endl;
+l5z3();
 }

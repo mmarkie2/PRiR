@@ -5,7 +5,7 @@
 #include <iostream>
 #include <mutex>
 #include <random>
-
+#include <thread>
 #include <chrono>
 #include <condition_variable>
 
@@ -81,10 +81,38 @@ public:
         pojemnik.zapisz(EOF);
     }
 };
+class Konsument
+{
+private:
+    Monitor<char>& pojemnik;
+public:
+    Konsument(Monitor<char>& _pojemnik): pojemnik(_pojemnik) {
 
+    }
+
+    void operator()()
+    {
+        char znak =pojemnik.odczytaj();
+        while(znak!=EOF)
+        {
+            cout<<znak<<endl;
+            znak=pojemnik.odczytaj();
+        }
+    }
+};
 void l5z1()
 
 {
+random_device r;
+minstd_rand generator(r());
+Monitor<char> pojemnik;
+Konsument konsument(pojemnik);
+Producent producent(pojemnik);
+thread wk(konsument);
+thread wp(producent);
+
+wp.join();
+wk.join();
 
 
 }

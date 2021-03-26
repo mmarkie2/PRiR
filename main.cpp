@@ -3,6 +3,7 @@
 // #include "lab03.h"
 #include "lab04.h"
 #include <iostream>
+#include "lab05.h"
 int main() {
   
   //wykonajSekwencyjne();

@@ -268,7 +268,10 @@ private:
 
 
 public:
-
+int getWielkoscBufora ()
+{
+return dane.size();
+}
 
     Monitor3() {
         saDane = false;
@@ -283,6 +286,7 @@ public:
         if ( x.second==true)
         {
             return true;
+             
         }
         }
         return false;
@@ -327,6 +331,10 @@ public:
 
         warunekSaNoweDane.wait(blokada);
 
+if(!czyProdukuja() && getWielkoscBufora ()==0)
+{
+ return EOF ;
+}
         saDane = false;
 
         char pobierana = dane.back();
@@ -389,11 +397,13 @@ public:
     }
 
     void operator()() {
-        char znak = pojemnik.odczytaj(this->id);
-        while ( pojemnik.czyProdukuja()) {
+       char znak;
+        do 
+        {
 
-            znak = pojemnik.odczytaj(this->id);
+          znak = pojemnik.odczytaj(this->id);
         }
+        while ( znak!=EOF); 
     }
 };
 

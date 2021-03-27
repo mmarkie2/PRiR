@@ -9,7 +9,7 @@
 #include <chrono>
 #include <condition_variable>
 #include <list>
-
+#include <map>
 using namespace std;
 
 const int CZAS_PRACY = 5;
@@ -162,8 +162,11 @@ public:
     TypDanych odczytaj(int id) {
         unique_lock<mutex> blokada(mutexDane);
 
+if(!saDane)
+{
+    warunekSaNoweDane.wait(blokada);
+}
 
-        warunekSaNoweDane.wait(blokada);
 
         saDane = false;
 
@@ -257,29 +260,48 @@ private:
     mutex mutexDane;
     condition_variable warunekSaNoweDane;
     condition_variable warunekZabranoDane;
-    unique_lock<mutex> lockProd;
-    bool uzyty;
-public:
-    void setUzyty(bool uzyty) {
-        Monitor3::uzyty = uzyty;
-    }
+
+
+    map<int,bool> producentDoCzyProdukuje;
+
+
+
 
 public:
-    bool isUzyty() const {
-        return uzyty;
-    }
 
-public:
+
     Monitor3() {
         saDane = false;
 
         dane = list<TypDanych>();
     }
 
+    bool czyProdukuja()
+    {
+        for (auto const& x : producentDoCzyProdukuje)
+        {
+        if ( x.second==true)
+        {
+            return true;
+        }
+        }
+        return false;
+    }
+
     void zapisz(TypDanych noweDane, int id) {
 
         unique_lock<mutex> blokada(mutexDane);
 
+        if(producentDoCzyProdukuje.find(id)==producentDoCzyProdukuje.end())
+        {
+            producentDoCzyProdukuje[id]=true;
+        }  else
+        {
+
+        }
+        if(noweDane==EOF) {
+            producentDoCzyProdukuje[id]=false;
+        }
 
         cout << "Producent " << id << ":  " << noweDane << endl;
 
@@ -368,7 +390,7 @@ public:
 
     void operator()() {
         char znak = pojemnik.odczytaj(this->id);
-        while (znak != EOF) {
+        while ( pojemnik.czyProdukuja()) {
 
             znak = pojemnik.odczytaj(this->id);
         }

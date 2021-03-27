@@ -48,7 +48,7 @@ int main() {
 // std::cout<<"l4zDodatkowe"<<std::endl;
 //l4zDodatkowe();
 
-
+    std::cout<<"*EOF WYSWIETLA SIĘ W KONSOLI JAKO KWADRAT ZE ZNAKIEM ZAPYTANIA"<<std::endl;
  std::cout<<"l5z1"<<std::endl;
 l5z1();
  std::cout<<"l5z2"<<std::endl;

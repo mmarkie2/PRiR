@@ -1,9 +1,13 @@
 // #include "lab01.h"
 // #include "lab02.h"
 // #include "lab03.h"
-#include "lab04.h"
+//#include "lab04.h"
+
+//#include "lab05.h"
+#include "lab06.h"
+
+
 #include <iostream>
-#include "lab05.h"
 int main() {
   
   //wykonajSekwencyjne();
@@ -48,11 +52,14 @@ int main() {
 // std::cout<<"l4zDodatkowe"<<std::endl;
 //l4zDodatkowe();
 
-    std::cout<<"*EOF WYSWIETLA SIĘ W KONSOLI JAKO KWADRAT ZE ZNAKIEM ZAPYTANIA"<<std::endl;
- std::cout<<"l5z1"<<std::endl;
-l5z1();
- std::cout<<"l5z2"<<std::endl;
-l5z2();
- std::cout<<"l5z3"<<std::endl;
-l5z3();
+//    std::cout<<"*EOF WYSWIETLA SIĘ W KONSOLI JAKO KWADRAT ZE ZNAKIEM ZAPYTANIA"<<std::endl;
+// std::cout<<"l5z1"<<std::endl;
+//l5z1();
+// std::cout<<"l5z2"<<std::endl;
+//l5z2();
+// std::cout<<"l5z3"<<std::endl;
+//l5z3();
+
+    std::cout<<"l6z1"<<std::endl;
+    l6z1();
 }

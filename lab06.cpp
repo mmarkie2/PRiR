@@ -5,7 +5,7 @@
 #include <string>
 #include <random>
 #include <thread>
-
+#include "Semafor.h"
 using namespace std;
 
 class Peron;
@@ -15,6 +15,7 @@ private:
     string m_nazwa;
     Peron &peron;
     Peron &peronZapasowy;
+
 public:
     Pociag(string n, Peron &p1, Peron &p2);
 
@@ -29,12 +30,14 @@ class Peron {
 private:
     string nazwa;
     bool pusty;
+    Semafor semafor;
 public:
-    Peron(string n) : nazwa(n), pusty(true) {
+    Peron(string n) : nazwa(n), pusty(true),semafor(1) {
 
     }
 
     void przyjazd(Pociag &p) {
+        semafor.czekaj();
         if (pusty) {
             string info;
             info.append("Pociąg ");
@@ -65,6 +68,7 @@ public:
         info.append("\n ");
         cout << info;
         pusty = true;
+        semafor.sygnalizuj();
     }
 
     bool czyPusty() {

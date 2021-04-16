@@ -15,11 +15,26 @@ warunekLicznikaRoznyOdZera.notify_one();
 }
 
 void Semafor::czekaj() {
-
+unique_lock<mutex> blokadaLicznika(mutexLicznika);
+while (this->licznikZasobow==0)
+{
+    warunekLicznikaRoznyOdZera.wait(blokadaLicznika);
+}
+--licznikZasobow;
 }
 
 bool Semafor::proboj_czekac() {
-    return false;
+    unique_lock<mutex> blokadaLicznika(mutexLicznika);
+
+    if(licznikZasobow!=0)
+    {
+        --licznikZasobow;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 int Semafor::wartosc() const {

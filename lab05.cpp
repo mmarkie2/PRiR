@@ -10,6 +10,7 @@
 #include <condition_variable>
 #include <list>
 #include <map>
+
 using namespace std;
 
 const int CZAS_PRACY = 5;
@@ -162,10 +163,9 @@ public:
     TypDanych odczytaj(int id) {
         unique_lock<mutex> blokada(mutexDane);
 
-if(!saDane)
-{
-    warunekSaNoweDane.wait(blokada);
-}
+        if (!saDane) {
+            warunekSaNoweDane.wait(blokada);
+        }
 
 
         saDane = false;
@@ -262,16 +262,13 @@ private:
     condition_variable warunekZabranoDane;
 
 
-    map<int,bool> producentDoCzyProdukuje;
-
-
+    map<int, bool> producentDoCzyProdukuje;
 
 
 public:
-int getWielkoscBufora ()
-{
-return dane.size();
-}
+    int getWielkoscBufora() {
+        return dane.size();
+    }
 
     Monitor3() {
         saDane = false;
@@ -279,15 +276,12 @@ return dane.size();
         dane = list<TypDanych>();
     }
 
-    bool czyProdukuja()
-    {
-        for (auto const& x : producentDoCzyProdukuje)
-        {
-        if ( x.second==true)
-        {
-            return true;
-             
-        }
+    bool czyProdukuja() {
+        for (auto const &x : producentDoCzyProdukuje) {
+            if (x.second == true) {
+                return true;
+
+            }
         }
         return false;
     }
@@ -296,15 +290,13 @@ return dane.size();
 
         unique_lock<mutex> blokada(mutexDane);
 
-        if(producentDoCzyProdukuje.find(id)==producentDoCzyProdukuje.end())
-        {
-            producentDoCzyProdukuje[id]=true;
-        }  else
-        {
+        if (producentDoCzyProdukuje.find(id) == producentDoCzyProdukuje.end()) {
+            producentDoCzyProdukuje[id] = true;
+        } else {
 
         }
-        if(noweDane==EOF) {
-            producentDoCzyProdukuje[id]=false;
+        if (noweDane == EOF) {
+            producentDoCzyProdukuje[id] = false;
         }
 
         cout << "Producent " << id << ":  " << noweDane << endl;
@@ -321,7 +313,7 @@ return dane.size();
         unique_lock<mutex> blokada(mutexDane);
         // cout<<"Producent odczyt "<<id<<":  "<<dane<<endl;
 
-    return dane.back();
+        return dane.back();
 
     }
 
@@ -331,22 +323,20 @@ return dane.size();
 
         warunekSaNoweDane.wait(blokada);
 
-if(!czyProdukuja() && getWielkoscBufora ()==0)
-{
- return EOF ;
-}
+        if (!czyProdukuja() && getWielkoscBufora() == 0) {
+            return EOF;
+        }
         saDane = false;
 
         char pobierana = dane.back();
         dane.pop_back();
         cout << "Konsument " << id << ":  " << pobierana << endl;
 
-        cout << "Zawartosc po odczycie "  << ":  "  << endl;
-        for (auto i:dane)
-        {
-            cout << i << ",  "  ;
+        cout << "Zawartosc po odczycie " << ":  " << endl;
+        for (auto i:dane) {
+            cout << i << ",  ";
         }
-        cout  << endl;
+        cout << endl;
 
         warunekZabranoDane.notify_one();
         return pobierana;
@@ -376,8 +366,6 @@ public:
         while (czas < CZAS_PRACY3) {
 
 
-
-
             pojemnik.zapisz(biezacyZnak, this->id);
             biezacyZnak = (biezacyZnak + 1 - 97) % 25 + 97;
             this_thread::sleep_for(chrono::milliseconds(rand() % 500));
@@ -397,13 +385,11 @@ public:
     }
 
     void operator()() {
-       char znak;
-        do 
-        {
+        char znak;
+        do {
 
-          znak = pojemnik.odczytaj(this->id);
-        }
-        while ( znak!=EOF); 
+            znak = pojemnik.odczytaj(this->id);
+        } while (znak != EOF);
     }
 };
 

@@ -8,12 +8,13 @@
 
 
 #include <iostream>
-int main() {
-  
-  //wykonajSekwencyjne();
-  // wykonajRownolegle();
 
-  //lab2
+int main() {
+
+    //wykonajSekwencyjne();
+    // wykonajRownolegle();
+
+    //lab2
 
 // std::cout<<"listing1"<<std::endl;
 // listing1();
@@ -60,6 +61,6 @@ int main() {
 // std::cout<<"l5z3"<<std::endl;
 //l5z3();
 
-    std::cout<<"l6z1"<<std::endl;
+    std::cout << "l6z1" << std::endl;
     l6z1();
 }

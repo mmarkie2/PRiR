@@ -4,7 +4,7 @@
 #include <string>
 #include <mutex>
 
-class Kolor{
+class Kolor {
 private:
     static unsigned short licznik;
     static std::mutex mtx;
@@ -12,8 +12,11 @@ private:
     static const std::string KOLOR[];
 public:
     static const unsigned short LICZBA_KOLOROW = 12;
+
     static std::string reset();
+
     static std::string nastepny();
+
     static std::string test();
 };
 

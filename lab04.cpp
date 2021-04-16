@@ -168,10 +168,10 @@ class Thread5 {
 private:
 
     int *numbers;
-int id;
-int &score;
+    int id;
+    int &score;
 public:
-    Thread5(int _id, int *_numbers, int &_score) : id(_id), numbers(_numbers), score(_score) {  }
+    Thread5(int _id, int *_numbers, int &_score) : id(_id), numbers(_numbers), score(_score) {}
 
     void operator()() {
         while (modifiedNumbers < arrSize) {
@@ -189,8 +189,8 @@ public:
                 }
                 numbersMutex[pos1].unlock();
             }
-            cout <<id<<"  score:  "<<score<< endl;
-            this_thread::sleep_for(chrono::microseconds(score*10));
+            cout << id << "  score:  " << score << endl;
+            this_thread::sleep_for(chrono::microseconds(score * 10));
 
         }
     }
@@ -198,26 +198,27 @@ public:
 
 void l4zDodatkowe() {
 
-    int *numbers=new int[arrSize];
+    int *numbers = new int[arrSize];
     srand(time(NULL));
-    int sum=0;
+    int sum = 0;
     for (int i = 0; i < arrSize; ++i) {
-        numbers[i] =  1;
-        sum+=numbers[i];
+        numbers[i] = 1;
+        sum += numbers[i];
     }
-    cout<<"suma tablicy: "<<sum << endl;
-    int score1=0;    int score2=0;
-    thread w1(Thread5(1,numbers,score1 ));
-    thread w2(Thread5(2,numbers,score2));
+    cout << "suma tablicy: " << sum << endl;
+    int score1 = 0;
+    int score2 = 0;
+    thread w1(Thread5(1, numbers, score1));
+    thread w2(Thread5(2, numbers, score2));
     w1.join();
     w2.join();
 
-    sum=0;
+    sum = 0;
     for (int i = 0; i < arrSize; ++i) {
 
-        sum+=numbers[i];
+        sum += numbers[i];
     }
-    cout<<"suma tablicy po: "<<sum << endl;
-    cout<<"wynik watku 1: "<<score1 <<"  wynik watku 2: "<<score2 << "  suma  "<<score1 +score2<<endl;
+    cout << "suma tablicy po: " << sum << endl;
+    cout << "wynik watku 1: " << score1 << "  wynik watku 2: " << score2 << "  suma  " << score1 + score2 << endl;
     delete[] numbers;
 }

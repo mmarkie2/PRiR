@@ -6,7 +6,7 @@
 #define PRIR_SEMAFOR_H
 
 #include <mutex>
-
+#include <condition_variable>
 using namespace std;
 
 class Semafor {

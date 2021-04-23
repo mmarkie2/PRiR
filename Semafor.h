@@ -23,6 +23,8 @@ public:
 
     int wartosc() const;
 
+    Semafor(const Semafor &obj);
+
 private:
     int licznikZasobow;
     mutex mutexLicznika;

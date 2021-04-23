@@ -4,7 +4,7 @@
 //#include "lab04.h"
 
 //#include "lab05.h"
-#include "lab06.h"
+//#include "lab06.h"
 #include "lab07.h"
 
 #include <iostream>

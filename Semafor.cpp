@@ -36,3 +36,8 @@ bool Semafor::proboj_czekac() {
 int Semafor::wartosc() const {
     return licznikZasobow;
 }
+
+Semafor::Semafor(const Semafor &obj) : Semafor::Semafor(obj.licznikZasobow)
+{
+
+}

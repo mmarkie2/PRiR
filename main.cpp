@@ -5,7 +5,7 @@
 
 //#include "lab05.h"
 #include "lab06.h"
-
+#include "lab07.h"
 
 #include <iostream>
 
@@ -61,6 +61,9 @@ int main() {
 // std::cout<<"l5z3"<<std::endl;
 //l5z3();
 
-    std::cout << "l6z1" << std::endl;
-    l6z1();
+//    std::cout << "l6z1" << std::endl;
+//    l6z1();
+
+    std::cout << "l7z1" << std::endl;
+    l7z1();
 }

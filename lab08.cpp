@@ -9,6 +9,7 @@
 #include <thread>
 #include <string>
 #include <vector>
+#include <set>
 #include "Semafor.h"
 
 using namespace std;
@@ -31,12 +32,12 @@ private:
 public:
     Lotnisko(Hangar &h) : pasWolny(true), hangar(h)
     {
-        void laduj(Samolot &s);
-        void kolujDoHangaru(Samolot &s);
-        void oposcHangar(Samolot &s);
-        void startuj(Samolot &s);
-    }
 
+    }
+    void laduj(Samolot &s);
+    void kolujDoHangaru(Samolot &s);
+    void oposcHangar(Samolot &s);
+    void startuj(Samolot &s);
 };
 
 class Samolot
@@ -44,14 +45,64 @@ class Samolot
         {
         public:
     Samolot(Lotnisko &lotnisko, const string nazwa) : lotnisko(lotnisko), nazwa(nazwa) {}
-void operator()()
+
+    const string &getNazwa() const {
+        return nazwa;
+    }
+
+    void operator()()
         {
             this_thread::sleep_for(chrono::milliseconds(zakres(generator)));
+            lotnisko .laduj(*this);
+            this_thread::sleep_for(chrono::milliseconds(zakres(generator)));
+            lotnisko .kolujDoHangaru(*this);
+            this_thread::sleep_for(chrono::milliseconds(zakres(generator)));
+            lotnisko .oposcHangar(*this);
+            this_thread::sleep_for(chrono::milliseconds(zakres(generator)));
+            lotnisko .startuj(*this);
+
+
         }
 private:
             Lotnisko &lotnisko;
             string nazwa;
         };
+
+class Hangar
+{
+private:
+    unsigned rozmiarHangaru;
+    set<string> samoloty;
+public:
+    Hangar(int n): rozmiarHangaru(n)
+    {
+
+    }
+    void parkuj(Samolot &s)
+    {
+        if(samoloty.size()<rozmiarHangaru)
+        {
+            samoloty.insert(s.getNazwa());
+
+        }else
+        {
+            cout <<"hangar pelny\n";
+        }
+    }
+    void opusc(Samolot &s)
+    {
+        if(samoloty.count(s.getNazwa())==1)
+        {
+            samoloty.erase(s.getNazwa());
+
+        }else
+        {
+            cout <<"w hangarze bie ma tego samolotu\n";
+        }
+    }
+
+
+};
 void l8z1() {
 
 }

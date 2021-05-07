@@ -71,4 +71,6 @@ int main() {
 
     std::cout << "l8z1" << std::endl;
     l8z1();
+
+    std::cout << "." << std::endl;
 }
